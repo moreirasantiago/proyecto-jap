@@ -26,49 +26,59 @@ document.addEventListener("DOMContentLoaded", function (e) {
   let htmlContentToAppend = "";
   
   function mostrarDatosDelProducto(currentProduct) {
-    
-    htmlContentToAppend += `
+    let htmlContentToAppend = `
+      <div>
+        <h2 class="product-name mt-4 mb-1">${currentProduct.name}</h2>
       </div>
+      <hr>
+      <div>
         <div>
-          <h2 class="product-name mt-4 mb-1">${currentProduct.name}</h2>
+          <h5 class="product-detail">Precio</h5>
+          <p>UYU ${currentProduct.cost}</p>
         </div>
-        <hr>
-        <div>
-          <div>
-            <h5 class="product-detail">Precio</h5>
-            <p>UYU ${currentProduct.cost}
-          </div>
-          <div class="product-sub">
-            <h5 class="product-detail">Descripción</h5>
-            <p>${currentProduct.description}
-          </div>
-          <div class="product-sub">
-            <h5 class="product-detail">Categoría</h5>
-            <p>${currentProduct.category}
-          </div>
-          <div class="product-sub">
-            <h5 class="product-detail">Cantidad de vendidos</h5>
-            <p>${currentProduct.soldCount}
-          </div>
+        <div class="product-sub">
+          <h5 class="product-detail">Descripción</h5>
+          <p>${currentProduct.description}</p>
+        </div>
+        <div class="product-sub">
+          <h5 class="product-detail">Categoría</h5>
+          <p>${currentProduct.category}</p>
+        </div>
+        <div class="product-sub">
+          <h5 class="product-detail">Cantidad de vendidos</h5>
+          <p>${currentProduct.soldCount}</p>
         </div>
       </div>
     `;
 
     htmlContentToAppend += `
-      <div class="col-md-12">
-        <h5 class="product-sub product-detail">Imágenes ilustrativas</h5>
-        <div class="row">
+    <h5 class="product-sub product-detail">Imágenes ilustrativas</h5>
+      <div class="col-md-6 mx-auto">
+        <div id="productImageSlider" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
     `;
-  
+
     for (let i = 0; i < currentProduct.images.length; i++) {
       htmlContentToAppend += `
-        <div class="col-md-3">
-          <img src="${
-            currentProduct.images[i]
-          }" class="img-thumbnail" alt="Imagen ilustrativa ${i + 1}">
-        </div>`;
+            <div class="carousel-item ${i === 0 ? 'active' : ''}">
+              <img src="${currentProduct.images[i]}" class="d-block w-100" alt="Imagen ilustrativa ${i + 1}">
+            </div>`;
     }
-  
+
+    htmlContentToAppend += `
+          </div>
+          <a class="carousel-control-prev" href="#productImageSlider" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#productImageSlider" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </a>
+        </div>
+      </div>
+    `;
+
     let contenedorProduct = document.getElementById("container");
     contenedorProduct.innerHTML = htmlContentToAppend;
   }
