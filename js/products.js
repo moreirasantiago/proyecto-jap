@@ -191,8 +191,3 @@ document.addEventListener("DOMContentLoaded", function (e) {
     div.innerHTML = htmlContentToAppend;
   });
 });
-
-function seleccionarProducto(idProducto) {
-  localStorage.setItem('productoSeleccionado', idProducto);
-  window.location.href = 'product-info.html';
-}
