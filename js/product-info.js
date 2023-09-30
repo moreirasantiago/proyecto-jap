@@ -80,7 +80,28 @@ function mostrarDatosDelProducto(currentProduct) {
         </div>
       </div>
     `;
+  htmlContentToAppend += `
+    <div class="col-md-12 mt-4">
+      <h5 class="product-sub product-detail">Productos relacionados</h5>
+      <div class="row">
+  `;
 
+  currentProduct.relatedProducts.forEach((relatedProduct) => {
+    htmlContentToAppend += `
+    <div onclick="seleccionProducto(${relatedProduct.id})" class="col-md-2 cursor-active">
+        <div class="card mb-4">
+          <img src="${relatedProduct.image}" class="img-thumbnail" alt="${relatedProduct.name}">
+          <div class="card-body">
+            <h5 class="card-title">${relatedProduct.name}</h5>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  htmlContentToAppend += `
+      </div>
+    </div>
+  `;
   let contenedorProduct = document.getElementById("container");
   contenedorProduct.innerHTML = htmlContentToAppend;
 }
