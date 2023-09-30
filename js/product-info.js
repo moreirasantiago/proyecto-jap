@@ -1,3 +1,8 @@
+function seleccionProducto(id) {
+  localStorage.setItem("productId", id);
+  location.reload();
+}
+
 document.addEventListener("DOMContentLoaded", function (e) {
     const idProductoSeleccionado = localStorage.getItem("productId");
   
