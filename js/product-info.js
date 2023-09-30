@@ -1,32 +1,32 @@
 document.addEventListener("DOMContentLoaded", function (e) {
-    const idProductoSeleccionado = localStorage.getItem("productId");
-  
-    if (!idProductoSeleccionado) {
-      console.error("No se ha seleccionado ningún producto.");
-      return;
+  const idProductoSeleccionado = localStorage.getItem("productId");
+
+  if (!idProductoSeleccionado) {
+    console.error("No se ha seleccionado ningún producto.");
+    return;
+  }
+  const PRODUCT_INFO_URL = `https://japceibal.github.io/emercado-api/products/${idProductoSeleccionado}.json`;
+
+  const PRODUCT_INFO_COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${idProductoSeleccionado}.json`;
+
+  getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
+    if (resultObj.status === "ok") {
+      const currentProduct = resultObj.data;
+      mostrarDatosDelProducto(currentProduct);
+
+      getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (commentsResultObj) {
+        if (commentsResultObj.status === "ok") {
+          const comments = commentsResultObj.data;
+          mostrarTodosLosComentarios();
+        }
+      });
     }
-    const PRODUCT_INFO_URL = `https://japceibal.github.io/emercado-api/products/${idProductoSeleccionado}.json`;
-  
-    const PRODUCT_INFO_COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${idProductoSeleccionado}.json`;
-  
-    getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
-      if (resultObj.status === "ok") {
-        const currentProduct = resultObj.data;
-        mostrarDatosDelProducto(currentProduct);
-  
-        getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (commentsResultObj) {
-          if (commentsResultObj.status === "ok") {
-            const comments = commentsResultObj.data;
-            mostrarTodosLosComentarios();
-          }
-        });
-      }
-    });
   });
-  let htmlContentToAppend = "";
-  
-  function mostrarDatosDelProducto(currentProduct) {
-    let htmlContentToAppend = `
+});
+let htmlContentToAppend = "";
+
+function mostrarDatosDelProducto(currentProduct) {
+  let htmlContentToAppend = `
       <div>
         <h2 class="product-name mt-4 mb-1">${currentProduct.name}</h2>
       </div>
@@ -51,21 +51,23 @@ document.addEventListener("DOMContentLoaded", function (e) {
       </div>
     `;
 
-    htmlContentToAppend += `
+  htmlContentToAppend += `
     <h5 class="product-sub product-detail">Imágenes ilustrativas</h5>
       <div class="col-md-6 mx-auto">
         <div id="productImageSlider" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
     `;
 
-    for (let i = 0; i < currentProduct.images.length; i++) {
-      htmlContentToAppend += `
-            <div class="carousel-item ${i === 0 ? 'active' : ''}">
-              <img src="${currentProduct.images[i]}" class="d-block w-100" alt="Imagen ilustrativa ${i + 1}">
-            </div>`;
-    }
-
+  for (let i = 0; i < currentProduct.images.length; i++) {
     htmlContentToAppend += `
+            <div class="carousel-item ${i === 0 ? "active" : ""}">
+              <img src="${
+                currentProduct.images[i]
+              }" class="d-block w-100" alt="Imagen ilustrativa ${i + 1}">
+            </div>`;
+  }
+
+  htmlContentToAppend += `
           </div>
           <a class="carousel-control-prev" href="#productImageSlider" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -79,66 +81,66 @@ document.addEventListener("DOMContentLoaded", function (e) {
       </div>
     `;
 
-    let contenedorProduct = document.getElementById("container");
-    contenedorProduct.innerHTML = htmlContentToAppend;
-  }
+  let contenedorProduct = document.getElementById("container");
+  contenedorProduct.innerHTML = htmlContentToAppend;
+}
 
-  function mostrarComentarios(comments) {
-    let htmlContentToAppend = `
+function mostrarComentarios(comments) {
+  let htmlContentToAppend = `
       <div class="table-responsive container">
         <p class="container mt-5 comment-title">Comentarios</p>
         <table class="table table-bordered comentarios-table">
           <tbody>
     `;
-  
-    for (let i = 0; i < comments.length; i++) {
-      const comment = comments[i];
-      
-      if (comment.id === localStorage.getItem("productId") || !comment.id) {
-        htmlContentToAppend += `
+
+  for (let i = 0; i < comments.length; i++) {
+    const comment = comments[i];
+
+    if (comment.id === localStorage.getItem("productId") || !comment.id) {
+      htmlContentToAppend += `
           <tr>
             <td>
               <div class="comment">
                 <p><span class="comment-name">${comment.user}</span> - ${
-                  comment.dateTime
-                } - <span class="rating">${puntuacion(comment.score)}</p>
+        comment.dateTime
+      } - <span class="rating">${puntuacion(comment.score)}</span></p>
                 <p class="text">${comment.description}</p>
               </div>
             </td>
           </tr>
         `;
-      }
     }
-  
-    htmlContentToAppend += `
+  }
+
+  htmlContentToAppend += `
         </tbody>
       </table>
     </div>
     `;
-  
-    let comentariosContainer = document.getElementById("comentarios-container");
-    comentariosContainer.innerHTML = htmlContentToAppend;
-  
-    agregarControlesDeComentario();
-  }
 
-  function puntuacion(score) {
-    const maxPuntuacion = 4;
-    let estrella = "";
-    for (let i = 0; i <= maxPuntuacion; i++) {
-      if (i <= score) {
-        estrella += '<span class="fa fa-star checked"></span>';
-      } else {
-        estrella += '<span class="fa fa-star"></span>';
-      }
+  let comentariosContainer = document.getElementById("comentarios-container");
+  comentariosContainer.innerHTML = htmlContentToAppend;
+
+  agregarControlesDeComentario();
+}
+
+function puntuacion(score) {
+  const maxPuntuacion = 4;
+  let estrella = "";
+  for (let i = 0; i <= maxPuntuacion; i++) {
+    if (i <= score) {
+      estrella += '<span class="fa fa-star checked"></span>';
+    } else {
+      estrella += '<span class="fa fa-star"></span>';
     }
-    return estrella;
   }
-  
-  function agregarControlesDeComentario() {
-    const comentariosContainer = document.getElementById("comentarios-container");
-  
-    let htmlContentToAppend = `
+  return estrella;
+}
+
+function agregarControlesDeComentario() {
+  const comentariosContainer = document.getElementById("comentarios-container");
+
+  let htmlContentToAppend = `
     <div class="container col-md-8">
       <label for="customRange2" class="form-label">Danos tu opinión:</label>
       <label for="customRange2" class="form-label" id="rating-label">1</label>
@@ -153,67 +155,63 @@ document.addEventListener("DOMContentLoaded", function (e) {
       </div>
     `;
 
-    comentariosContainer.innerHTML += htmlContentToAppend;
-  
-    const submitButton = document.getElementById("submit-comment");
-    submitButton.addEventListener("click", agregarComentarioYActualizar);
-  }
+  comentariosContainer.innerHTML += htmlContentToAppend;
 
-  function agregarComentarioYActualizar() {
-    const commentText = document.getElementById("comment-text").value;
-    const rating = document.getElementById("rating-select").value;
-  
-    const fechacoment = new Date()
-      .toISOString()
-      .slice(0, 19)
-      .replace("T", " ");
-  
-      const newComment = {
-      id: localStorage.getItem("productId"),
-      user: localStorage.getItem("username"),
-      dateTime: fechacoment,
-      score: parseInt(rating),
-      description: commentText,
-      };
-  
-    let userComments = JSON.parse(localStorage.getItem("userComments")) || [];
-  
-    userComments.unshift(newComment);
-  
-    localStorage.setItem("userComments", JSON.stringify(userComments));
-    mostrarTodosLosComentarios();
-  
-    document.getElementById("comment-text").value = "";
-    document.getElementById("rating-select").value = "1";
-  }
+  const submitButton = document.getElementById("submit-comment");
+  submitButton.addEventListener("click", agregarComentarioYActualizar);
+}
 
-  function mostrarTodosLosComentarios() {
+function agregarComentarioYActualizar() {
+  const commentText = document.getElementById("comment-text").value;
+  const rating = document.getElementById("rating-select").value;
 
-    let userComments = JSON.parse(localStorage.getItem("userComments")) || [];
-    
-    comentariosJson().then(function (existingComments) {
-      let allComments = userComments.concat(existingComments);
-      
-            allComments.sort(function (a, b) {
-              return new Date(b.dateTime) - new Date(a.dateTime);
-            });
-        
-            mostrarComentarios(allComments);
-          });
-          
-        }
-        
-    function comentariosJson() {
-          const idProductoSeleccionado = localStorage.getItem("productId");
-        
-          const PRODUCT_INFO_COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${idProductoSeleccionado}.json`;
-          return getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (commentsResultObj) {    
-            if (commentsResultObj.status === "ok") {
-              return commentsResultObj.data;
-            } else {
-              console.error("Error al obtener los comentarios del JSON.");
-              return [];
-            }
-          });
-        }
-        
+  const fechacoment = new Date().toISOString().slice(0, 19).replace("T", " ");
+
+  const newComment = {
+    id: localStorage.getItem("productId"),
+    user: localStorage.getItem("username"),
+    dateTime: fechacoment,
+    score: parseInt(rating),
+    description: commentText,
+  };
+
+  let userComments = JSON.parse(localStorage.getItem("userComments")) || [];
+
+  userComments.unshift(newComment);
+
+  localStorage.setItem("userComments", JSON.stringify(userComments));
+  mostrarTodosLosComentarios();
+
+  document.getElementById("comment-text").value = "";
+  document.getElementById("rating-select").value = "1";
+}
+
+function mostrarTodosLosComentarios() {
+  let userComments = JSON.parse(localStorage.getItem("userComments")) || [];
+
+  comentariosJson().then(function (existingComments) {
+    let allComments = userComments.concat(existingComments);
+
+    allComments.sort(function (a, b) {
+      return new Date(b.dateTime) - new Date(a.dateTime);
+    });
+
+    mostrarComentarios(allComments);
+  });
+}
+
+function comentariosJson() {
+  const idProductoSeleccionado = localStorage.getItem("productId");
+
+  const PRODUCT_INFO_COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${idProductoSeleccionado}.json`;
+  return getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (
+    commentsResultObj
+  ) {
+    if (commentsResultObj.status === "ok") {
+      return commentsResultObj.data;
+    } else {
+      console.error("Error al obtener los comentarios del JSON.");
+      return [];
+    }
+  });
+}
