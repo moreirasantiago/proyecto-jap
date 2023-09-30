@@ -16,7 +16,7 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link
       rel="stylesheet"
-      href="path/to/font-awesome/css/font-awesome.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
   </head>
 
@@ -37,7 +37,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav w-100 justify-content-between">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Inicio</a>
+              <a class="nav-link active" href="index.html">Inicio</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="categories.html">Categorías</a>
@@ -45,8 +45,38 @@
             <li class="nav-item">
               <a class="nav-link" href="sell.html">Vender</a>
             </li>
-            <li class="nav-item">
-              <span class="nav-link"><span id="username"></span></span>
+            <!-- DROPDOWN MENU -->
+            <li class="nav-item dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span id="username"><i class="fas fa-user"></i></span>
+              </button>
+              <!-- AGREGO BOTON SELECTOR NOCHE/DIA -->
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <a class="dropdown-item" href="./cart.html">Mi carrito</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="./my-profile.html"
+                    >Mi perfil</a
+                  >
+                </li>
+                <li>
+                  <!-- AGREGO ID PARA LS -->
+                  <a class="dropdown-item" href="#" id="logout"
+                    >Cerrar sesión</a
+                  >
+                </li>
+                <li class="switch ms-5">
+                  <i class="fa-solid fa-moon"></i>
+                  <i class="fa-solid fa-sun"></i>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -84,5 +114,6 @@
     <script src="js/init.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/session.js"></script>
+    <script src="js/index.js"></script>
   </body>
 </html>

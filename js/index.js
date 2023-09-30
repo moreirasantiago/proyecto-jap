@@ -22,7 +22,7 @@ if (!haSidoRedirigido()) {
   localStorage.setItem("redirigido", "true");
 }
 
-// Funcionalidad DARKMODE
+// Funcionalidad DARKMODE - OPERATIVO SOLAMENTE EN INDEX.HTML
 
 const switchBtn = document.querySelector(".switch");
 const div = document.querySelector("#dark-mode-div");
