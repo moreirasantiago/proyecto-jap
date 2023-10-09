@@ -67,15 +67,15 @@ function showData() {
       htmlContentToAppend += `
             <div onclick="seleccionProducto(${product.id})" class="list-group-item list-group-item-action cursor-active">
               <div class="row">
-              <div class="col-3">
+              <div class="col-md-12 col-lg-2">
                 <img src="${product.image}" class="img-thumbnail">
               </div>
             <div class="col">
-              <div class="d-flex w-100 justify-content-between">
+              <div class="d-flex w-100 justify-content-between ">
                 <h4 class="mb-1">${product.name} - USD ${product.cost}</h4>
-                    <small>${product.soldCount} Vendidos</small>
+                    <small class="especificaciones">${product.soldCount} Vendidos</small>
               </div>
-                  <p>${product.description}</p>
+                  <p class="especificaciones">${product.description}</p>
               </div>
             </div>
           </div>`;

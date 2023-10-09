@@ -49,6 +49,21 @@ nav a {
   }
 } */
 
+@media (max-width: 992px) {
+  #imagexxl{
+    display: none;
+  }
+}
+@media (min-width: 992px) {
+  #imagenormal{
+    display: none;
+  }
+}
+@media (max-width: 400px) {
+  .especificaciones{
+    display: none;
+  }
+}
 .jumbotron p:last-child {
   margin-bottom: 0;
 }
