@@ -28,8 +28,9 @@ nav a {
   }
 }
 
-.jumbotron {
-  height: 50vh;
+/* .jumbotron {
+  height: 50%;
+  width: 100%;
   padding: 5em inherit;
   margin-bottom: 0;
   background-color: #53C0FB;
@@ -40,13 +41,13 @@ nav a {
   color: black;
   font-weight: bold;
 }
-
-@media (min-width: 768px) {
+ */
+/* @media (min-width: 0px) {
   .jumbotron {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
-}
+} */
 
 .jumbotron p:last-child {
   margin-bottom: 0;
