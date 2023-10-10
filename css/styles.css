@@ -64,6 +64,7 @@ nav a {
     display: none;
   }
 }
+
 .jumbotron p:last-child {
   margin-bottom: 0;
 }
