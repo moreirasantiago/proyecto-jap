@@ -84,8 +84,31 @@
     </nav>
     <main>
       <div class="container">
-        <div class="alert alert-danger text-center" role="alert">
-          <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+        <h3 class="mt-4">Articulos a comprar</h3>
+        <div class="container align-items-center" id="mostrarcarrito">
+        </div>
+        <div class="container d-flex">
+          <div class="col-6">
+            <h4 class="mt-4">Dirección de envío</h4>
+            <div class="container">
+              <div class="row">
+                <input class="col-5 ms-2" type="text" placeholder="Calle" required>
+                <input class="col-3 ms-2" type="text" placeholder="Número" required>
+              </div>
+              <div class="row">
+                <input class="col-5 ms-2 mt-2" type="text" placeholder="Esquina" required>
+              </div>   
+            </div>
+          </div>
+          <div class="col-6">
+            <h4 class="mt-4">Tipo de envío</h4>
+            <select  name="tipode" id="">
+              <option value="premium">Envío Premium 2 a 5 días (15%)</option>
+              <option value="expres">Envío Expres 5 a 8 días (7%)</option>
+              <option value="standar">Envío Standar 12 a 15 días (5%)</option>
+            </select>
+          </div>
+          <hr>
         </div>
       </div>
     </main>
