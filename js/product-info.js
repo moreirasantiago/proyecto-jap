@@ -32,8 +32,13 @@ let htmlContentToAppend = "";
 
 function mostrarDatosDelProducto(currentProduct) {
   let htmlContentToAppend = `
-      <div>
-        <h2 class="product-name mt-4 mb-1">${currentProduct.name}</h2>
+      <div class="row">
+        <div class="container col-6">
+          <h2 class="product-name mt-4 mb-1">${currentProduct.name}</h2>
+        </div>
+        <div class="container col-6 text-end mt-4">
+          <button type="button" class="btn btn-success" id="comprar">Comprar</button>
+        </div>
       </div>
       <hr>
       <div>

@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("autos").addEventListener("click", function () {
-    localStorage.setItem("catID", 101);
+    localStorage.setItem("selectedCatID", 101);
     window.location = "products.html";
   });
   document.getElementById("juguetes").addEventListener("click", function () {
-    localStorage.setItem("catID", 102);
+    localStorage.setItem("selectedCatID", 102);
     window.location = "products.html";
   });
   document.getElementById("muebles").addEventListener("click", function () {
-    localStorage.setItem("catID", 103);
+    localStorage.setItem("selectedCatID", 103);
     window.location = "products.html";
   });
 });
