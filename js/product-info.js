@@ -19,6 +19,23 @@ document.addEventListener("DOMContentLoaded", function (e) {
       const currentProduct = resultObj.data;
       mostrarDatosDelProducto(currentProduct);
 
+    let carritoLocal = localStorage.getItem("carritoLocal");
+  
+    carritoLocal = JSON.parse(carritoLocal);
+
+    carritoLocal = {};
+    
+    const id = idProductoSeleccionado;
+
+    carritoLocal[id] = {
+      id: idProductoSeleccionado,
+      nombre: currentProduct.name,
+      unitCost: currentProduct.cost,
+      imagen: currentProduct.images,
+    };
+  
+    localStorage.setItem("carritoLocal", JSON.stringify(carritoLocal));
+
       getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (commentsResultObj) {
         if (commentsResultObj.status === "ok") {
           const comments = commentsResultObj.data;
@@ -28,16 +45,104 @@ document.addEventListener("DOMContentLoaded", function (e) {
     }
   });
 });
+
 let htmlContentToAppend = "";
 
 function mostrarDatosDelProducto(currentProduct) {
-  let htmlContentToAppend = `
+
+  if (localStorage.getItem("selectedCatID") == 101 || localStorage.getItem("selectedCatID") == 105) {
+    
+    let htmlContentToAppend = `
+        <div class="row">
+          <div class="container col-6">
+            <h2 class="product-name mt-4 mb-1">${currentProduct.name}</h2>
+          </div>
+          <div class="container col-6 text-end mt-4">
+            <button type="button" class="btn btn-success" onclick="carritoloc()">Comprar</button>
+          </div>
+        </div>
+        <hr>
+        <div>
+          <div>
+            <h5 class="product-detail">Precio</h5>
+            <p>USD ${currentProduct.cost}</p>
+          </div>
+          <div class="product-sub">
+            <h5 class="product-detail">Descripción</h5>
+            <p>${currentProduct.description}</p>
+          </div>
+          <div class="product-sub">
+            <h5 class="product-detail">Categoría</h5>
+            <p>${currentProduct.category}</p>
+          </div>
+          <div class="product-sub">
+            <h5 class="product-detail">Cantidad de vendidos</h5>
+            <p>${currentProduct.soldCount}</p>
+          </div>
+        </div>
+      `;
+      htmlContentToAppend += `
+      <h5 class="product-sub product-detail">Imágenes ilustrativas</h5>
+        <div class="col-md-6 mx-auto">
+          <div id="productImageSlider" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+      `;
+  
+    for (let i = 0; i < currentProduct.images.length; i++) {
+      htmlContentToAppend += `
+              <div class="carousel-item ${i === 0 ? "active" : ""}">
+                <img src="${
+                  currentProduct.images[i]
+                }" class="d-block w-100" alt="Imagen ilustrativa ${i + 1}">
+              </div>`;
+    }
+  
+    htmlContentToAppend += `
+            </div>
+            <a class="carousel-control-prev" href="#productImageSlider" role="button" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#productImageSlider" role="button" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </a>
+          </div>
+        </div>
+      `;
+    htmlContentToAppend += `
+      <div class="col-md-12 mt-4">
+        <h5 class="product-sub product-detail">Productos relacionados</h5>
+        <div class="row">
+    `;
+  
+    currentProduct.relatedProducts.forEach((relatedProduct) => {
+      htmlContentToAppend += `
+      <div onclick="seleccionProducto(${relatedProduct.id})" class="col-md-2 cursor-active">
+          <div class="card mb-4">
+            <img src="${relatedProduct.image}" class="img-thumbnail" alt="${relatedProduct.name}">
+            <div class="card-body">
+              <h5 class="card-title">${relatedProduct.name}</h5>
+            </div>
+          </div>
+        </div>`;
+    });
+  
+    htmlContentToAppend += `
+        </div>
+      </div>
+    `;
+    let contenedorProduct = document.getElementById("container");
+    contenedorProduct.innerHTML = htmlContentToAppend;
+  }else {
+
+    let htmlContentToAppend = `
       <div class="row">
         <div class="container col-6">
           <h2 class="product-name mt-4 mb-1">${currentProduct.name}</h2>
         </div>
         <div class="container col-6 text-end mt-4">
-          <button type="button" class="btn btn-success" id="comprar">Comprar</button>
+          <button type="button" class="btn btn-success" onclick="carritoloc()">Comprar</button>
         </div>
       </div>
       <hr>
@@ -61,60 +166,95 @@ function mostrarDatosDelProducto(currentProduct) {
       </div>
     `;
 
-  htmlContentToAppend += `
-    <h5 class="product-sub product-detail">Imágenes ilustrativas</h5>
-      <div class="col-md-6 mx-auto">
-        <div id="productImageSlider" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-    `;
-
-  for (let i = 0; i < currentProduct.images.length; i++) {
     htmlContentToAppend += `
-            <div class="carousel-item ${i === 0 ? "active" : ""}">
-              <img src="${
-                currentProduct.images[i]
-              }" class="d-block w-100" alt="Imagen ilustrativa ${i + 1}">
-            </div>`;
+      <h5 class="product-sub product-detail">Imágenes ilustrativas</h5>
+        <div class="col-md-6 mx-auto">
+          <div id="productImageSlider" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+      `;
+  
+    for (let i = 0; i < currentProduct.images.length; i++) {
+      htmlContentToAppend += `
+              <div class="carousel-item ${i === 0 ? "active" : ""}">
+                <img src="${
+                  currentProduct.images[i]
+                }" class="d-block w-100" alt="Imagen ilustrativa ${i + 1}">
+              </div>`;
+    }
+  
+    htmlContentToAppend += `
+            </div>
+            <a class="carousel-control-prev" href="#productImageSlider" role="button" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#productImageSlider" role="button" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </a>
+          </div>
+        </div>
+      `;
+    htmlContentToAppend += `
+      <div class="col-md-12 mt-4">
+        <h5 class="product-sub product-detail">Productos relacionados</h5>
+        <div class="row">
+    `;
+  
+    currentProduct.relatedProducts.forEach((relatedProduct) => {
+      htmlContentToAppend += `
+      <div onclick="seleccionProducto(${relatedProduct.id})" class="col-md-2 cursor-active">
+          <div class="card mb-4">
+            <img src="${relatedProduct.image}" class="img-thumbnail" alt="${relatedProduct.name}">
+            <div class="card-body">
+              <h5 class="card-title">${relatedProduct.name}</h5>
+            </div>
+          </div>
+        </div>`;
+    });
+  
+    htmlContentToAppend += `
+        </div>
+      </div>
+    `;
+    let contenedorProduct = document.getElementById("container");
+    contenedorProduct.innerHTML = htmlContentToAppend;
+  }
   }
 
-  htmlContentToAppend += `
-          </div>
-          <a class="carousel-control-prev" href="#productImageSlider" role="button" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#productImageSlider" role="button" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </a>
-        </div>
-      </div>
-    `;
-  htmlContentToAppend += `
-    <div class="col-md-12 mt-4">
-      <h5 class="product-sub product-detail">Productos relacionados</h5>
-      <div class="row">
-  `;
+  function carritoloc() {
 
-  currentProduct.relatedProducts.forEach((relatedProduct) => {
-    htmlContentToAppend += `
-    <div onclick="seleccionProducto(${relatedProduct.id})" class="col-md-2 cursor-active">
-        <div class="card mb-4">
-          <img src="${relatedProduct.image}" class="img-thumbnail" alt="${relatedProduct.name}">
-          <div class="card-body">
-            <h5 class="card-title">${relatedProduct.name}</h5>
-          </div>
-        </div>
-      </div>`;
-  });
+    let mostrarcarritoLocal = localStorage.getItem("mostrarcarritoLocal");
+  
+    if (!mostrarcarritoLocal) {
+      mostrarcarritoLocal = {};
+    } else {
+      mostrarcarritoLocal = JSON.parse(mostrarcarritoLocal);
+    }
+  
+    const id = Date.now().toString();
+    mostrarcarritoLocal[id] = {
+      producto: JSON.parse(localStorage.getItem("carritoLocal")),
+    };
+  
+    localStorage.setItem("mostrarcarritoLocal", JSON.stringify(mostrarcarritoLocal));
+  }
 
-  htmlContentToAppend += `
-      </div>
-    </div>
-  `;
-  let contenedorProduct = document.getElementById("container");
-  contenedorProduct.innerHTML = htmlContentToAppend;
-}
+  /* function carritoloc() {
+
+    let mostrarcarritoLocal = localStorage.getItem("carritoLocal");
+
+    if (!mostrarcarritoLocal) {
+      mostrarcarritoLocal = {}
+    } else {
+      mostrarcarritoLocal = JSON.parse(mostrarcarritoLocal);
+    }
+
+    console.log(mostrarcarritoLocal);
+
+    localStorage.setItem("mostrarcarritoLocal", JSON.stringify(mostrarcarritoLocal));
+
+  } */
 
 function mostrarComentarios(comments) {
   let htmlContentToAppend = `

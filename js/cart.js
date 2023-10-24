@@ -29,8 +29,47 @@ document.addEventListener("DOMContentLoaded", function (e) {
         </div> `;
       divcarrito.innerHTML = htmlcontent;
     }
-  });
+
+    //de aca para abajo lo nuevo
+    
+    let carrdef = JSON.parse(localStorage.getItem("mostrarcarritoLocal"));
+    let idprod = localStorage.getItem("productId");
+  
+    console.log(carrdef);  
+  
+    for (let i = 0; i <= carrdef.length; i++) {
+      let product = carrdef[i];
+  
+      let hhhhhh = `
+          <div class="container align-items-center"> 
+            <hr>
+            <div class="row text-center">
+                <p class="col-2"><strong>Nombre</strong></p>
+                <p class="col-2"><strong>Costo</strong></p>
+                <p class="col-2"><strong>Cantidad</strong></p>
+                <p class="col-2"><strong>Subtotal</strong></p>
+            </div>
+            <div class="row text-center">
+                <p class="col-2">${product.idprod.nombre}</p>
+                <p class="col-2">$${product.idprod.unitCost}</p>
+                <input class="col-2 h-50 ms-5 especificaciones" style="width: 10%;" type="number" value="1" oninput="calcularSubtotal(0)" id="cantproduc" required>
+                <p class="col-2 ms-4" id="subtotal">$${product.idprod.unitCost}</p>
+                <div class="col-1">
+                    <img class="w-100" src="${product.idprod.imagen}" alt="">
+                </div>
+            </div>
+            <hr>
+          </div> `
+  
+          divcarrito.innerHTML += hhhhhh;
+  
+    }
+  })
+
+
 });
+
+//de aca para arriba lo nuevo
 
 function calcularSubtotal(articuloIndex) {
   if (articuloscarrito) {

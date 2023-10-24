@@ -55,35 +55,69 @@ function seleccionProducto(id){
 
 function showData() {
   let htmlContentToAppend = "";
-  for (let i = 0; i < currProducsArray.length; i++) {
-    let product = currProducsArray[i];
 
-    if (
-      (minCost == undefined ||
-        (minCost != undefined && parseInt(product.cost) >= minCost)) &&
-      (maxCost == undefined ||
-        (maxCost != undefined && parseInt(product.cost) <= maxCost))
-    ) {
-      htmlContentToAppend += `
-            <div onclick="seleccionProducto(${product.id})" class="list-group-item list-group-item-action cursor-active">
-              <div class="row">
-              <div class="col-md-12 col-lg-2">
-                <img src="${product.image}" class="img-thumbnail">
+  if (selectedCatID == 101 || selectedCatID == 105) {
+    
+    for (let i = 0; i < currProducsArray.length; i++) {
+      let product = currProducsArray[i];
+  
+      if (
+        (minCost == undefined ||
+          (minCost != undefined && parseInt(product.cost) >= minCost)) &&
+        (maxCost == undefined ||
+          (maxCost != undefined && parseInt(product.cost) <= maxCost))
+      ) {
+        htmlContentToAppend += `
+              <div onclick="seleccionProducto(${product.id})" class="list-group-item list-group-item-action cursor-active">
+                <div class="row">
+                <div class="col-md-12 col-lg-2">
+                  <img src="${product.image}" class="img-thumbnail">
+                </div>
+              <div class="col">
+                <div class="d-flex w-100 justify-content-between ">
+                  <h4 class="mb-1">${product.name} - USD ${product.cost}</h4>
+                      <small class="especificaciones">${product.soldCount} Vendidos</small>
+                </div>
+                    <p class="especificaciones">${product.description}</p>
+                </div>
               </div>
-            <div class="col">
-              <div class="d-flex w-100 justify-content-between ">
-                <h4 class="mb-1">${product.name} - USD ${product.cost}</h4>
-                    <small class="especificaciones">${product.soldCount} Vendidos</small>
-              </div>
-                  <p class="especificaciones">${product.description}</p>
-              </div>
-            </div>
-          </div>`;
+            </div>`;
+      }
+  
+      div.innerHTML = htmlContentToAppend;
     }
-
-    div.innerHTML = htmlContentToAppend;
+  }else{
+    for (let i = 0; i < currProducsArray.length; i++) {
+      let product = currProducsArray[i];
+  
+      if (
+        (minCost == undefined ||
+          (minCost != undefined && parseInt(product.cost) >= minCost)) &&
+        (maxCost == undefined ||
+          (maxCost != undefined && parseInt(product.cost) <= maxCost))
+      ) {
+        htmlContentToAppend += `
+              <div onclick="seleccionProducto(${product.id})" class="list-group-item list-group-item-action cursor-active">
+                <div class="row">
+                <div class="col-md-12 col-lg-2">
+                  <img src="${product.image}" class="img-thumbnail">
+                </div>
+              <div class="col">
+                <div class="d-flex w-100 justify-content-between ">
+                  <h4 class="mb-1">${product.name} - $ ${product.cost}</h4>
+                      <small class="especificaciones">${product.soldCount} Vendidos</small>
+                </div>
+                    <p class="especificaciones">${product.description}</p>
+                </div>
+              </div>
+            </div>`;
+      }
+  
+      div.innerHTML = htmlContentToAppend;
+    }
   }
-}
+
+  }
 
 function sortandshowProducts(sortCriterio, categoriesArray) {
   currentSortCrit = sortCriterio;
