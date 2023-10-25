@@ -164,41 +164,26 @@
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5">Forma de pago</h1>
-            
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" onclick="" id="forma" required>
+            <input type="checkbox" class="d-flex ms-3 form-check-input" onclick="" id="forma" required>
             <label class="form-check-label" for="forma">Tarjeta de crédito</label>
-          <div class="modal-body">
+          <div class="container modal-body">
             <label for="numero">Número de tarjeta</label>
             <input type="text" class="form-control" id="numero" placeholder="Ingrese el numero de tarjeta">
-            <br>
-          <div class="form-check"> 
             <label for="codigoSeg">Código de seg.</label>
             <input type="text" class="form-control" id="codigoSeg" placeholder="Ingrese codigo">
-          </div>
-          <br>
-          <div class="form-check">
             <label for="Vencimiento">Vencimiento(MM/AA)</label>
             <input type="text" class="form-control" id="Vencimiento" placeholder="Ingrese vencimiento">
-            <br>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" onclick="" id="transBanc" required>
-              <label class="form-check-label" for="transBanc">Transferencia Bancaria</label>
-          </div>
-          <br>
-          <div class="form-check"> 
+            <input type="checkbox" class="form-check-input" onclick="" id="transBanc" required>
+            <label class="form-check-label" for="transBanc">Transferencia Bancaria</label>
             <label for="numCuenta">Número de cuenta</label>
             <input type="text" class="form-control" id="numCuenta" placeholder="Ingrese numero de cuenta">
-          </div>
-          </div>
           <div class="modal-footer">
             <button class="col-3 btn btn-md btn-primary" type="button">Cerrar</button>
-            </div>
           </div>
-        </div>
       </div>
+    </div>
     </div>
     <div id="spinner-wrapper">
       <div class="lds-ring">

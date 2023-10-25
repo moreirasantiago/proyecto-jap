@@ -21,8 +21,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
               <p class="col-2">$${articuloscarrito.articles[0].unitCost}</p>
               <input class="col-2 h-50 ms-5 especificaciones" style="width: 10%;" type="number" value="1" oninput="calcularSubtotal(0)" id="cantproduc" required>
               <p class="col-2 ms-4" id="subtotal">$${articuloscarrito.articles[0].unitCost}</p>
-              <div class="col-1 align-items-center">
+              <div class="col-1 mb-2">
                   <img class="w-100" src="${articuloscarrito.articles[0].image}" alt="">
+              </div>
+              <div class="col-2 container align-center">
+              <button type="button" class="ms-5 btn btn-outline border-danger float-end"><i class="fa-solid fa-trash" style="color: #ff0000"></i></i></button>
               </div>
           </div>
         `;
@@ -65,6 +68,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
      <div class="col-1 align-items-center">
      <img class="w-100" src="${proddd.imagen[0]}" alt="">
      </div>
+     <div class="col-2 container align-center">
+              <button type="button" class="ms-5 btn btn-outline border-danger float-end"><i class="fa-solid fa-trash" style="color: #ff0000"></i></i></button>
+    </div>
      </div>   
      </div>
      `;
