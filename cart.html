@@ -100,15 +100,49 @@
               </div>   
             </div>
           </div>
-          <div class="col-6">
+          <div class="envios col-6">
             <h4 class="mt-4">Tipo de envío</h4>
-            <select  name="tipode" id="">
+            <select  name="tipode" id="" required>
               <option value="premium">Envío Premium 2 a 5 días (15%)</option>
               <option value="expres">Envío Expres 5 a 8 días (7%)</option>
               <option value="standar">Envío Standar 12 a 15 días (5%)</option>
             </select>
           </div>
-          <hr>
+        </div>
+        <hr>
+        <div class="costos container">
+          <div class="col-12">
+            <h4 class="mt-4">Costos</h4>
+            <div class="container">
+              <div class="container border">
+                <p class="mt-2">Subtotal</p>
+                <p><small>Costo unitario del producto por cantidad</small></p>
+              </div>
+              <div class="container border">
+                <p class="mt-2">Costos de envios</p>
+                <p><small>Según el tipo de envío</small></p>
+              </div>
+              <div class="container border">
+                <p class="mt-2">Total ($)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="container">
+          <h4 class="mt-4">Forma de pago</h4>
+          <div class="d-flex col-sm-12">
+            <p class="mt-3">No ha seleccionado</p>
+            <button type="button" class="ms-2 btn btn-link ps-0" data-bs-toggle="modal" id="formadepago" data-bs-target="#pagoforma">Seleccionar</button>
+              <div class="invalid-feedback">
+                <span id="terminosinvs"></span>
+              </div>
+          </div>
+        </div>  
+      </div>
+      <div class="mt-3 container">
+        <div class="text-center align-items-center">
+          <button class="col-6 btn btn-lg btn-primary" type="button">Finalizar compra</button>
         </div>
       </div>
     </main>
@@ -125,6 +159,47 @@
         </p>
       </div>
     </footer>
+    <div class="modal fade" id="pagoforma" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Forma de pago</h1>
+            
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" onclick="" id="forma" required>
+            <label class="form-check-label" for="forma">Tarjeta de crédito</label>
+          <div class="modal-body">
+            <label for="numero">Número de tarjeta</label>
+            <input type="text" class="form-control" id="numero" placeholder="Ingrese el numero de tarjeta">
+            <br>
+          <div class="form-check"> 
+            <label for="codigoSeg">Código de seg.</label>
+            <input type="text" class="form-control" id="codigoSeg" placeholder="Ingrese codigo">
+          </div>
+          <br>
+          <div class="form-check">
+            <label for="Vencimiento">Vencimiento(MM/AA)</label>
+            <input type="text" class="form-control" id="Vencimiento" placeholder="Ingrese vencimiento">
+            <br>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" onclick="" id="transBanc" required>
+              <label class="form-check-label" for="transBanc">Transferencia Bancaria</label>
+          </div>
+          <br>
+          <div class="form-check"> 
+            <label for="numCuenta">Número de cuenta</label>
+            <input type="text" class="form-control" id="numCuenta" placeholder="Ingrese numero de cuenta">
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button class="col-3 btn btn-md btn-primary" type="button">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="spinner-wrapper">
       <div class="lds-ring">
         <div></div>

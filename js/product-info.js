@@ -27,11 +27,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
     
     const id = idProductoSeleccionado;
 
-    carritoLocal[id] = {
+    carritoLocal= {
       id: idProductoSeleccionado,
       nombre: currentProduct.name,
       unitCost: currentProduct.cost,
       imagen: currentProduct.images,
+      cant: 1,
     };
   
     localStorage.setItem("carritoLocal", JSON.stringify(carritoLocal));
