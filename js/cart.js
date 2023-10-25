@@ -32,21 +32,15 @@ document.addEventListener("DOMContentLoaded", function (e) {
       divcarrito.innerHTML = htmlcontent;
     }
     
-    let carrdef = JSON.parse(localStorage.getItem("mostrarcarritoLocal"));
-    let idprod = localStorage.getItem("productId");
-    let divcarrito = document.getElementById("mostrarcarrito");
-    let carrdefArray = Object.values(carrdef);
-    let prodcdup = 0;
-    console.log(carrdefArray);  
-
+    
     // for (let i = 0; i < carrdefArray.length; i++) {
-    //   for (let j = 1; j > carrdefArray.length; j++) {
-    //  const productoExiste =  carrdefArray.find((producto) => producto[j].id === producto[i].id); 
-
-/*      for (let i = 0; i < carrdefArray.length; i++) {
+      //   for (let j = 1; j > carrdefArray.length; j++) {
+        //  const productoExiste =  carrdefArray.find((producto) => producto[j].id === producto[i].id); 
+        
+        /*      for (let i = 0; i < carrdefArray.length; i++) {
       const productoActual = carrdefArray[i];
       const productoExiste = carrdefArray.find((producto) => producto.id === productoActual.id);
-    
+      
       if (productoExiste !== productoActual) {
         // Aquí, productoExiste contiene un producto con el mismo ID, por lo que es un duplicado.
         prodcdup++;
@@ -55,7 +49,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
       }
       console.log(prodcdup);
     } */
-
+    let carrdef = JSON.parse(localStorage.getItem("mostrarcarritoLocal"));
+    let idprod = localStorage.getItem("productId");
+    let divcarrito = document.getElementById("mostrarcarrito");
+    let carrdefArray = Object.values(carrdef);
+    let prodcdup = 0;
+    console.log(carrdefArray);  
+   /* esto funciona  
     for (let i = 0; i < carrdefArray.length; i++) {
      let proddd = carrdefArray[i].producto;
      let carritomostrar = `
@@ -71,14 +71,53 @@ document.addEventListener("DOMContentLoaded", function (e) {
      <div class="col-2 container align-center">
               <button type="button" class="ms-5 btn btn-outline border-danger float-end"><i class="fa-solid fa-trash" style="color: #ff0000"></i></i></button>
     </div>
-     </div>   
-     </div>
+    </div>   
+      </div>
      `;
      
      divcarrito.innerHTML += carritomostrar;
     }
-    }  
-)
+    }   */
+    let productosEnCarrito = {}; // Objeto para llevar un seguimiento de los productos en el carrito
+
+    for (let i = 0; i < carrdefArray.length; i++) {
+        let producto = carrdefArray[i].producto;
+        let id = producto.id;
+        let cantt = 1;
+    
+        if (productosEnCarrito[id]) {
+            // Si el producto ya está en el carrito, suma la cantidad
+            productosEnCarrito[id].cantidad++;
+            cantt++;
+            console.log(cantt);
+        } else {
+            // Si es un nuevo producto, inicializa su cantidad a 1 y agrégalo al carrito
+            productosEnCarrito[id] = { producto, cantidad: 1 };
+    
+            // Antes de inyectar el código HTML, verifica si el producto ya está en el carrito
+            if (productosEnCarrito[id].cantidad === 1) {
+                let carritomostrar = `
+                    <div class="container border">
+                        <div class="row text-center">
+                            <p class="col-2">${producto.nombre}</p>
+                            <p class="col-2">$${producto.unitCost}</p>
+                            <input class="col-2 h-50 ms-5 especificaciones" style="width: 10%;" type="number" value="${cantt}" oninput="calcularSubtotalcarrito(0)" id="cantproduc${i}" required>
+                            <p class="col-2 ms-4" id="subtotal${i}">$${producto.unitCost * productosEnCarrito[id].cantidad}</p>
+                            <div class="col-1 align-items-center">
+                                <img class="w-100" src="${producto.imagen[0]}" alt="">
+                            </div>
+                            <div class="col-2 container align-center">
+                                <button type="button" class="ms-5 btn btn-outline border-danger float-end"><i class="fa-solid fa-trash" style="color: #ff0000"></i></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+    
+                divcarrito.innerHTML += carritomostrar;
+            }
+        }
+    }
+  })
  });
 
  function calcularSubtotalcarrito(carrdefArray) {
