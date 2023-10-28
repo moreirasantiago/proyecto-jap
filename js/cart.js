@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                                 <img class="w-100" src="${producto.imagen[0]}" alt="">
                             </div>
                             <div class="col-2 container align-center">
-                                <button type="button" id="papelera${i}" class="ms-5 btn btn-outline border-danger float-end"><i class="fa-solid fa-trash" style="color: #ff0000"></i></i></button>
+                                <button type="button" id="papelera${i}" class="ms-5 btn btn-outline border-danger float-end" onclick="borrardiv(${i})"><i class="fa-solid fa-trash" style="color: #ff0000"></i></i></button>
                             </div>
                         </div>
                     </div>
@@ -74,8 +74,53 @@ document.addEventListener("DOMContentLoaded", function (e) {
             }
         }
     }
-  })
+
+   calcularYMostrarTotalSubtotales();
+  for (let i = 0; i < carrdefArray.length; i++) {
+    
+    const cantidadInput = document.getElementById(`cantproduc${i}`);
+    cantidadInput.addEventListener('input', calcularYMostrarTotalSubtotales);
+}
+
+function calcularYMostrarTotalSubtotales() {
+   let sumaSubtotales = 0;
+
+   for (let i = 0; i < carrdefArray.length; i++) {
+       let producto = carrdefArray[i].producto;
+       let id = producto.id;
+       let cantidadInput = document.getElementById(`cantproduc${i}`);
+       let cantidad = parseInt(cantidadInput.value);
+
+       if (!isNaN(cantidad)) {
+           let subtotal = producto.unitCost * cantidad;
+           sumaSubtotales += subtotal;
+       }
+   }
+
+   if (document.getElementById("selecttipodeenvio").value === "premium") {
+    let premiumsubtotal = sumaSubtotales*15/100;
+    let elemnt = document.getElementById("sobtotalenvio");
+    elemnt.textContent = premiumsubtotal;
+    console.log(premiumsubtotal);
+   } else if (document.getElementById("selecttipodeenvio").value === "expres") {
+    let premiumsubtotal = sumaSubtotales*7/100;
+    let elemnt = document.getElementById("sobtotalenvio");
+    elemnt.textContent = premiumsubtotal;
+    console.log(premiumsubtotal);
+   }else if (document.getElementById("selecttipodeenvio").value === "standar") {
+    let premiumsubtotal = sumaSubtotales*5/100;
+    let elemnt = document.getElementById("sobtotalenvio");
+    elemnt.textContent = premiumsubtotal;
+    console.log(premiumsubtotal);
+   }
+
+   let elementoTotalSubtotales = document.getElementById("totaldesubtotales");
+   elementoTotalSubtotales.textContent = 'Total: $' + sumaSubtotales;
+}  
+  }) 
+
  });
+
 
  function calcularSubtotal(index) {
     let cantidadInput = document.getElementById(`cantproduc${index}`);
@@ -99,8 +144,6 @@ function calcularSubtotalJSON(articuloIndex) {
     subtotalElement.textContent = `$${subtotal}`;
   }}
 
-
-
 function opcionselec(selecc) {
     if (selecc === 'tarjeta') {
         document.getElementById("modaltext").textContent = "Tarjeta de credito";
@@ -117,11 +160,20 @@ function opcionselec(selecc) {
     }
 }
 let totalsub = document.getElementsByClassName('totalsub');
-function calsubtotal(){
-    
-    let total = 0;
 
-    for (let i=0; i<totalsub.length;i++){
-        total = total+totalsub[i].value;
+// Funciona pero no borra el LocalStorage
+function borrardiv(numero) {
+    const botonPapelera = document.getElementById(`papelera${numero}`);
+    const divPadre = botonPapelera.closest('div.container.border');
+
+    if (divPadre) {
+        const numeroElemento = botonPapelera.id.replace('papelera', '');
+
+        localStorage.setItem(`elementoEliminado${numeroElemento}`, 'eliminado');
+
+        const elementoContenedor = document.getElementById(`id_productos_carrito${numeroElemento}`);
+        if (elementoContenedor) {
+            elementoContenedor.style.display = 'none';
+        }
     }
 }
