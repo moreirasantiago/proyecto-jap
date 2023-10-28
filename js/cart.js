@@ -144,15 +144,17 @@ function calcularSubtotalJSON(articuloIndex) {
     subtotalElement.textContent = `$${subtotal}`;
   }}
 
+ let terxtformapago = document.getElementById("modaltext");
+
 function opcionselec(selecc) {
     if (selecc === 'tarjeta') {
-        document.getElementById("modaltext").textContent = "Tarjeta de credito";
+        terxtformapago.textContent = "Tarjeta de credito";
         document.getElementById("numCuenta").disabled = true; 
         document.getElementById("numero").disabled = false;
         document.getElementById("codigoSeg").disabled = false;
         document.getElementById("Vencimiento").disabled = false;
     } else if (selecc === 'transferencia') {
-        document.getElementById("modaltext").textContent = "Transferencia Bancaria";
+        terxtformapago.textContent = "Transferencia Bancaria";
         document.getElementById("numCuenta").disabled = false;
         document.getElementById("numero").disabled = true;
         document.getElementById("codigoSeg").disabled = true;
@@ -177,3 +179,40 @@ function borrardiv(numero) {
         }
     }
 }
+
+function validcompras() {
+    const calle = document.getElementById("calle");
+    const numero = document.getElementById("num");
+    const esquina = document.getElementById("esquina");
+    const tipoEnvio = document.getElementById("selecttipodeenvio");
+
+    if ((!calle.value || !numero.value || !esquina.value) || (tipoEnvio.value === "")) {
+        
+        if ((document.getElementById("modaltext").textContent === "No ha seleccionado")) {
+            
+            alert("Porfavor seleccione una forma de pago");
+      
+        }
+        calle.classList.add("is-invalid");
+        esquina.classList.add("is-invalid");
+        numero.classList.add("is-invalid");
+        tipoEnvio.classList.add("is-invalid");
+       
+    } else {
+        calle.classList.remove("is-invalid");
+        esquina.classList.remove("is-invalid");
+        numero.classList.remove("is-invalid");
+        tipoEnvio.classList.remove("is-invalid");
+
+    const mensaje = document.getElementById("comprarealiz");
+    mensaje.textContent = "Compra realizada con exito";
+    mensaje.classList.remove("d-none");
+        
+    setTimeout(function () {
+         mensaje.classList.add("d-none");
+    }, 1700);
+        
+    }
+
+}
+

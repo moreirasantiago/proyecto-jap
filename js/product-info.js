@@ -58,9 +58,15 @@ function mostrarDatosDelProducto(currentProduct) {
           <div class="container col-6">
             <h2 class="product-name mt-4 mb-1">${currentProduct.name}</h2>
           </div>
+          <div class="popper" id="popperContent" style="display: none;">
+            <div class="popper-content">
+                Producto agregado al carrito correctamente
+            </div>
+        </div>
           <div class="container col-6 text-end mt-4">
-            <button type="button" class="btn btn-success" onclick="carritoloc()">Comprar</button>
+            <button type="button" class="btn btn-success" onclick="carritoloc(); alertcomprar();" id="btncomprar">Comprar</button>
           </div>
+          <div id="mensaje" class="d-none alert alert-success mt-3" role="alert"></div>
         </div>
         <hr>
         <div>
@@ -88,7 +94,8 @@ function mostrarDatosDelProducto(currentProduct) {
           <div id="productImageSlider" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
       `;
-  
+
+
     for (let i = 0; i < currentProduct.images.length; i++) {
       htmlContentToAppend += `
               <div class="carousel-item ${i === 0 ? "active" : ""}">
@@ -142,8 +149,9 @@ function mostrarDatosDelProducto(currentProduct) {
         <div class="container col-6">
           <h2 class="product-name mt-4 mb-1">${currentProduct.name}</h2>
         </div>
+        <div id="mensaje" class="d-none alert alert-success mt-3" role="alert"></div>
         <div class="container col-6 text-end mt-4">
-          <button type="button" class="btn btn-success" onclick="carritoloc()">Comprar</button>
+          <button type="button" class="btn btn-success" onclick="carritoloc(); alertcomprar();">Comprar</button>
         </div>
       </div>
       <hr>
@@ -241,21 +249,15 @@ function mostrarDatosDelProducto(currentProduct) {
     localStorage.setItem("mostrarcarritoLocal", JSON.stringify(mostrarcarritoLocal));
   }
 
-  /* function carritoloc() {
+ function alertcomprar() {
+    const mensaje = document.getElementById("mensaje");
+    mensaje.textContent = "Producto agregado al carrito correctamente";
+    mensaje.classList.remove("d-none");
 
-    let mostrarcarritoLocal = localStorage.getItem("carritoLocal");
-
-    if (!mostrarcarritoLocal) {
-      mostrarcarritoLocal = {}
-    } else {
-      mostrarcarritoLocal = JSON.parse(mostrarcarritoLocal);
-    }
-
-    console.log(mostrarcarritoLocal);
-
-    localStorage.setItem("mostrarcarritoLocal", JSON.stringify(mostrarcarritoLocal));
-
-  } */
+    setTimeout(function () {
+        mensaje.classList.add("d-none");
+    }, 1700);
+}
 
 function mostrarComentarios(comments) {
   let htmlContentToAppend = `
