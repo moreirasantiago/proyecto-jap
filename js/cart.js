@@ -163,7 +163,6 @@ function opcionselec(selecc) {
 }
 let totalsub = document.getElementsByClassName('totalsub');
 
-// Funciona pero no borra el LocalStorage
 function borrardiv(numero) {
     const botonPapelera = document.getElementById(`papelera${numero}`);
     const divPadre = botonPapelera.closest('div.container.border');
