@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     cantidadInput.addEventListener('input', calcularYMostrarTotalSubtotales);
 }
 
+
 function calcularYMostrarTotalSubtotales() {
    let sumaSubtotales = 0;
 
@@ -101,21 +102,27 @@ function calcularYMostrarTotalSubtotales() {
     let premiumsubtotal = sumaSubtotales*15/100;
     let elemnt = document.getElementById("sobtotalenvio");
     elemnt.textContent = premiumsubtotal;
+    document.getElementById('somadetotales').textContent = `${premiumsubtotal + sumaSubtotales}`
     console.log(premiumsubtotal);
    } else if (document.getElementById("selecttipodeenvio").value === "expres") {
     let premiumsubtotal = sumaSubtotales*7/100;
     let elemnt = document.getElementById("sobtotalenvio");
     elemnt.textContent = premiumsubtotal;
+    document.getElementById('somadetotales').textContent = `${premiumsubtotal + sumaSubtotales}`
     console.log(premiumsubtotal);
    }else if (document.getElementById("selecttipodeenvio").value === "standar") {
     let premiumsubtotal = sumaSubtotales*5/100;
     let elemnt = document.getElementById("sobtotalenvio");
     elemnt.textContent = premiumsubtotal;
+    document.getElementById('somadetotales').textContent = `${premiumsubtotal + sumaSubtotales}`
     console.log(premiumsubtotal);
    }
 
+
    let elementoTotalSubtotales = document.getElementById("totaldesubtotales");
-   elementoTotalSubtotales.textContent = 'Total: $' + sumaSubtotales;
+   elementoTotalSubtotales.textContent = sumaSubtotales;
+
+   
 }  
   }) 
 
@@ -129,7 +136,7 @@ function calcularYMostrarTotalSubtotales() {
     let cantidad = parseInt(cantidadInput.value);
 
     if (!isNaN(cantidad)) {
-        subtotalElement.textContent = `$${costoUnitario * cantidad}`;
+        subtotalElement.textContent = `${costoUnitario * cantidad}`;
     }
 }
 
@@ -141,7 +148,7 @@ function calcularSubtotalJSON(articuloIndex) {
     const cantidad = parseFloat(cantproducInput.value);
     const unitCost = parseFloat(articuloscarrito.articles[articuloIndex].unitCost);
     const subtotal = unitCost * cantidad;
-    subtotalElement.textContent = `$${subtotal}`;
+    subtotalElement.textContent = `${subtotal}`;
   }}
 
  let terxtformapago = document.getElementById("modaltext");
@@ -162,7 +169,6 @@ function opcionselec(selecc) {
     }
 }
 let totalsub = document.getElementsByClassName('totalsub');
-
 function borrardiv(numero) {
     const botonPapelera = document.getElementById(`papelera${numero}`);
     const divPadre = botonPapelera.closest('div.container.border');
