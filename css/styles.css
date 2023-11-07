@@ -258,3 +258,12 @@ a.custom-card:hover {
   transition: 0.5s ease-in-out;
   
 }
+
+
+
+/*  cambiar // esta puesto asi nomas */
+
+.card-text {
+  
+  color: black;
+}

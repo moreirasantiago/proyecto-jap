@@ -113,7 +113,7 @@
               <hr>
               <div class="col-6">
                 <label for="label" class="form-label">Primer nombre *</label>
-                <input type="text" class="form-control" id="validname" placeholder="Ingrese su nombre" aria-describedby="inputGroupPrepend3 validname" required>
+                <input type="text" class="form-control" id="validname" placeholder="Ingrese su nombre" oninput="classList.remove('is-invalid')"" aria-describedby="inputGroupPrepend3 validname" required>
                 <div id="validname" class="invalid-feedback">
                    Porfavor ingrese su nombre.
                 </div>
@@ -130,7 +130,7 @@
            
               <div class="col-6">
                 <label for="validapp" class="form-label">Primer apellido *</label>
-                <input type="text" class="form-control" id="validapp" placeholder="Ingrese su apellido" aria-describedby="inputGroupPrepend3 validapp" required>
+                <input type="text" class="form-control" id="validapp" placeholder="Ingrese su apellido" oninput="classList.remove('is-invalid')" aria-describedby="inputGroupPrepend3 validapp" required>
                 <div id="validapp" class="invalid-feedback">
                    Porfavor ingrese su apellido.
                 </div>
@@ -146,7 +146,7 @@
               <hr>
               <div class="col-6">
                 <label for="validmail" class="form-label">E-mail *</label>
-                <input type="text" class="form-control" id="validmail" placeholder="Ingrese su e-mail" aria-describedby="inputGroupPrepend3 validmail" required>
+                <input type="text" class="form-control" id="validmail" placeholder="Ingrese su e-mail" oninput="classList.remove('is-invalid')" aria-describedby="inputGroupPrepend3 validmail" required>
                 <div id="validmail" class="invalid-feedback">
                    Porfavor ingrese su e-mail.
                 </div>
