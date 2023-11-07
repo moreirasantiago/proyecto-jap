@@ -18,7 +18,7 @@ function haSidoRedirigido() {
 }
 
 if (!haSidoRedirigido()) {
-  window.location.href = "../login.html";
+  window.location.href = "login.html";
   localStorage.setItem("redirigido", "true");
 }
 

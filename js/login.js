@@ -41,7 +41,7 @@ const VALIDAR_ENVIO = (e) => {
     const username = usuarioInput.value.trim();
     localStorage.setItem("username", username);
     console.log("Nombre de usuario almacenado:", username);
-    window.location.href = "../index.html";
+    window.location.href = "index.html";
 }
 };
 

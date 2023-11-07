@@ -48,7 +48,6 @@ nav a {
     padding-bottom: 6rem;
   }
 } */
-
 @media (max-width: 992px) {
   #imagexxl{
     display: none;
@@ -257,4 +256,5 @@ a.custom-card:hover {
 .bg-light {
   color: #fff;
   transition: 0.5s ease-in-out;
+  
 }
