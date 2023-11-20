@@ -22,25 +22,41 @@ if (!haSidoRedirigido()) {
   localStorage.setItem("redirigido", "true");
 }
 
-// Funcionalidad DARKMODE - OPERATIVO SOLAMENTE EN INDEX.HTML
+// Verifica si estás en el index.html
+const isIndexPage = window.location.pathname.includes("index.html");
 
 const switchBtn = document.querySelector(".switch");
 const div = document.querySelector("#dark-mode-div");
 const cards = document.querySelectorAll(".card");
+const cardsBody = document.querySelectorAll(".card-body");
 const footer = document.querySelector("footer");
+const foto = document.querySelector(".card-img-top");
 
 const isDarkMode = localStorage.getItem("darkmode");
 
 function enableDarkMode() {
   document.body.classList.toggle("dark-mode");
-  footer.classList.toggle("bg-dark");
-  div.classList.toggle("bg-dark");
+  foto.classList.toggle("dark-mode");
+  footer.classList.toggle("dark-mode");
+  div.classList.toggle("dark-mode");
   switchBtn.classList.toggle("active");
 
-  cards.forEach((card) => {
-    card.classList.toggle("bg-dark");
-    card.classList.toggle("text-light");
+  cardsBody.forEach((cardsBody) => {
+    cardsBody.classList.toggle("dark-mode");
   });
+
+  cards.forEach((card) => {
+    card.classList.toggle("dark-mode");
+  });
+
+  // Verifica si la imagen tiene la clase específica
+  if (foto.classList.contains("dark-mode")) {
+    // Cambia la fuente de la imagen para el modo oscuro
+    foto.src = "/img/cover_back_invertido.png";
+  } else {
+    // Vuelve a la fuente original cuando estás en modo claro
+    foto.src = "/img/cover_back.png";
+  }
 
   localStorage.setItem(
     "darkmode",
@@ -48,7 +64,7 @@ function enableDarkMode() {
   );
 }
 
-if (isDarkMode === "true") {
+if (isDarkMode === "true" && isIndexPage) {
   enableDarkMode();
 }
 

@@ -248,22 +248,25 @@ a.custom-card:hover {
   border: solid 2px #fff;
 }
 
-.bg-dark {
-  color: #252525;
-  transition: 0.5s ease-in-out
-}
-
-.bg-light {
-  color: #fff;
+/* Modo oscuro Index */
+.dark-mode {
+  color: rgb(255, 255, 255);
   transition: 0.5s ease-in-out;
-  
+  background-color: rgb(0, 0, 0);
 }
 
+div#dark-mode-div.dark-mode {
+  background-color: #212529;
+}
 
+.dark-mode p {
+  color: #929496;
+}
 
-/*  cambiar // esta puesto asi nomas */
+.dark-mode button {
+  color: #ffffff;
+}
 
-.card-text {
-  
-  color: black;
+footer.dark-mode {
+  background-color: #212529;
 }
